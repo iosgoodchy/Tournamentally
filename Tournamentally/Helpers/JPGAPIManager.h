@@ -45,7 +45,7 @@ typedef void(^TournamentParticipationBlock)(JPGTournamentModel * _Nullable tourn
 /**
  Method used to get a list of available tournaments that a player can enter.
 
- @param completion The TournamentListBlock callback block to be invoked when the request is complete.
+ @param completion The callback block to be invoked when the request is complete.
  */
 - (void)getTournamentList:(TournamentListBlock _Nonnull)completion;
 
@@ -53,7 +53,7 @@ typedef void(^TournamentParticipationBlock)(JPGTournamentModel * _Nullable tourn
  Method used to participate in a specific tournament.
 
  @param url The URL of the tournament to participate in.
- @param completion The TournamentParticipationBlock callback block to be invoked when the request is complete.
+ @param completion The callback block to be invoked when the request is complete.
  */
 - (void)participateInTournamentWithURL:(NSURL * _Nonnull)url completion:(TournamentParticipationBlock _Nonnull)completion;
 

@@ -15,10 +15,10 @@
 @interface NSDictionary (JPGErrorCode)
 
 /**
- Returns user info dictionary configured for the supplied error code
+ Returns user info dictionary configured for the supplied error code.
 
  @param errorCode JPGErrorCode to apply to the user info dictionary object.
- @param underlyingError Accompanying NSError (if required)
+ @param underlyingError Accompanying NSError (if required).
  @return A dictionary object containing user info.
  */
 + (NSDictionary * _Nullable)userInfoDictionaryForErrorCode:(JPGErrorCode)errorCode underlyingError:(NSError * _Nullable)underlyingError;

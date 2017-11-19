@@ -10,8 +10,15 @@
 #import "Reachability.h"
 #import "NSError+JPGError.h"
 
-typedef void(^AuthTokenBlock)(NSString *token, NSError *error);
+/**
+ The Authentication Token request callback block
+ 
+ @param token A string object representing the authentication token.
+ @param error If an error occurred, the cause of the failure.
+ */
+typedef void(^AuthTokenBlock)(NSString * _Nullable token, NSError * _Nullable error);
 
+// API constants
 static NSString * const kTournamentAuthTokenKey = @"X-Acme-Authentication-Token";
 static NSString * const kTournamentAPIBaseURL = @"https://damp-chamber-22487.herokuapp.com/api/v1";
 static NSString * const kTokenEndpoint = @"/authentications/tokens";
@@ -51,6 +58,11 @@ static NSString * const kTournamentDataKey = @"data";
         if (error != nil) {
             // An error occurred while getting the auth token. Return the error.
             completion(nil, error);
+            return;
+        }
+        if (token == nil) {
+            // No auth token was provided. Return an error.
+            completion(nil, [NSError errorWithCode:JPGErrorCodeAuthTokenError]);
             return;
         }
         
@@ -108,6 +120,7 @@ static NSString * const kTournamentDataKey = @"data";
             } else if (statusCode == 401) {
                 // The authentication token was missing or invalid.
                 // Clear the cached token so the next attempt can get a new one.
+                // Return an error.
                 self.authToken = nil;
                 completion(nil, [NSError errorWithCode:JPGErrorCodeAuthTokenError]);
                 return;
@@ -132,6 +145,11 @@ static NSString * const kTournamentDataKey = @"data";
         if (error != nil) {
             // An error occurred while getting the auth token. Return the error.
             completion(nil, error);
+            return;
+        }
+        if (token == nil) {
+            // No auth token was provided. Return an error.
+            completion(nil, [NSError errorWithCode:JPGErrorCodeAuthTokenError]);
             return;
         }
         
@@ -199,6 +217,7 @@ static NSString * const kTournamentDataKey = @"data";
             } else if (statusCode == 401) {
                 // The authentication token was missing or invalid.
                 // Clear the cached token so the next attempt can get a new one.
+                // Return an error.
                 self.authToken = nil;
                 completion(nil, [NSError errorWithCode:JPGErrorCodeAuthTokenError]);
                 return;
@@ -231,7 +250,7 @@ static NSString * const kTournamentDataKey = @"data";
 /**
  Helper method to determine the current network state.
 
- @return A boolean value represening whether or not the network is accessible.
+ @return A boolean value representing whether or not the network is accessible.
  */
 - (BOOL)networkIsReachable {
     return (self.reachability.currentReachabilityStatus != NotReachable);
@@ -240,7 +259,7 @@ static NSString * const kTournamentDataKey = @"data";
 /**
  Method used to get the auth token.
 
- @param completion The AuthTokenBlock callback block to be invoked when the request is complete.
+ @param completion The callback block to be invoked when the request is complete.
  */
 - (void)getAuthToken:(AuthTokenBlock)completion {
     // Check for network access.

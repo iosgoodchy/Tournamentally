@@ -66,9 +66,9 @@ static NSString * const kTournMessageKey = @"entry_message";
             // Get the tournament timestamp for date parsing.
             NSString *timestampString = attrDict[kTournTimestampKey];
             if (timestampString != nil) {
-                // Convert ISO 8601 date format string to NSDate object
+                // Convert ISO 8601 date format string to NSDate object.
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]; // 2017-08-29T15:00:00.000Z
+                [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"]; // example: 2017-08-29T15:00:00.000Z
                 NSDate *formattedDate = [formatter dateFromString:timestampString];
                 // Set the tournament creation date.
                 _tournamentCreationDate = formattedDate;

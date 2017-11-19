@@ -60,7 +60,7 @@ static NSString * const kShowTournamentDetailSegueIdentifier = @"showDetail";
 - (IBAction)loadTournaments:(id)sender {
     if (self.tournaments.count > 0) {
         // Clear the old data and refresh the table view.
-        // Shows the user visually that someting happened.
+        // Shows the user visually that something happened.
         self.tournaments = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -73,7 +73,7 @@ static NSString * const kShowTournamentDetailSegueIdentifier = @"showDetail";
         [self.loadingIndicator startAnimating];
     });
     
-    // Invoke an API call to get a list or tournament objects.
+    // Invoke an API call to get a list of tournament objects.
     [[JPGAPIManager sharedInstance] getTournamentList:^(NSArray<JPGTournamentModel *> * _Nullable tournaments, NSError * _Nullable error) {
         if (error != nil) {
             // An error occurred. Display an alert.
@@ -122,7 +122,7 @@ static NSString * const kShowTournamentDetailSegueIdentifier = @"showDetail";
 #pragma mark - Table View Delegates
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Lock down the table view selections to prevent multiple taps.
+    // Lock down table view selections to prevent multiple taps.
     tableView.allowsSelection = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         // Start animating the loading indicator.
@@ -170,7 +170,6 @@ static NSString * const kShowTournamentDetailSegueIdentifier = @"showDetail";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *kCellID = @"TournamentCellID";
-    
     // Dequeue a table view cell.
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     // Get the appropriate tournament object.
